@@ -6,7 +6,7 @@ from db_connect import db
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:pw123@127.0.0.1:3306/portfolio"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:pw123@127.0.0.1:3306/pf_fix"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
 db.init_app(app)
@@ -14,13 +14,13 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    user = User("dudejrtjdrp@naver.com","1234heello","hyolee")
+    user = User("dudejrtjdrp@naver.com","1234heello","hyolee","asdas","asdasd")
     db.session.add(user)
-    user1 = User("dudejrtjdrp@gmail.com","hello1234","hl")
+    user1 = User("dudejrtjdrp@gmail.com","hello1234","hl","asdas","asdasd")
     db.session.add(user1)
-    user2 = User("dudejrtjdrp@nate.com","halohalo","yo")
+    user2 = User("dudejrtjdrp@nate.com","halohalo","yo","asdas","asdasd")
     db.session.add(user2)
-    user3 = User("dudejrtjdrp@daum.com","431242123","leehyo")
+    user3 = User("dudejrtjdrp@daum.com","431242123","leehyo","asdas","asdasd")
     db.session.add(user3)
     db.session.commit()
 
@@ -39,7 +39,9 @@ def check():
             'id':d.id,
             'email':d.email,
             'password':d.password,
-            'name':d.name
+            'name':d.name,
+            'description':d.description,
+            'image':d.image
         }
         result.append(tmp)
         
