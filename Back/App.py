@@ -26,8 +26,24 @@ def home():
 
     # 추가한 데이터를 DB에 저장하세요.
     
-    return "good"
+    return "add"
 
+
+@app.route("/del")
+def dele():
+    user = db.session.query(User).first()
+    db.session.delete(user)
+    user1 = db.session.query(User).first()
+    db.session.delete(user1)
+    user2 = db.session.query(User).first()
+    db.session.delete(user2)
+    user3 = db.session.query(User).first()
+    db.session.delete(user3)
+    db.session.commit()
+
+    # 추가한 데이터를 DB에 저장하세요.
+    
+    return "delete"
 
 @app.route("/check")
 def check():
