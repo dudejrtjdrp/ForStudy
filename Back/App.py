@@ -18,7 +18,21 @@ db.init_app(app)
 @app.route("/")
 def home():
     if request.method == 'GET':
-        return jsonify(users)
+        data = db.session.query(User).all()
+        result = []
+        for d in data:
+            tmp= {
+                'id':d.id,
+                'email':d.email,
+                'password':d.password,
+                'name':d.name,
+                'description':d.description,
+                'image':d.image
+            }
+            result.append(tmp)
+
+        return jsonify(result)
+
     elif request.method == 'POST':
         data = request.get_json()
         users.append(data)
