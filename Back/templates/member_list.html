@@ -2,7 +2,7 @@
 {% if user_list %}
     <ul>
         {% for user in user_list %}
-             <li><p>{{ user.id }} {{ user.email }} {{ user.password }} {{ user.name }} {{user.description}} {{user.image}}</p></li>
+             <li><p>{{ user.id }} {{ user.email }} {{ user.password }} {{ user.name }}</p></li>
         {% endfor %}
     </ul>
 {% else %}

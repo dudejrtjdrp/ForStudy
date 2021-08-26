@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "flask-cors": "^0.0.1",
+    "http-proxy-middleware": "^2.0.1"
   }
 }
