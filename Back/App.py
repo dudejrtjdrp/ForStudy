@@ -1,3 +1,4 @@
+from models import Certificate, Edulevel, Project, Award
 import pymysql
 from flask import Flask, url_for, render_template, request, redirect, session, jsonify
 from models import User
@@ -48,31 +49,148 @@ def check():
         return jsonify(result)
 
 
+@app.route("/getAward",methods=['GET', 'POST'])
+def getAward():
+    if request.method == 'POST':
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        try:
+            user_id = User.query.filter_by(email=email, password=password).first()
+           
+            data = Award.query.filter_by(user_id=user_id.id).all()
+           
+            result = []
+            for d in data:
+                tmp= {
+                'id':d.id,
+                'description':d.description,
+                'name':d.name,
+                'user_id':d.user_id
+                }
+            result.append(tmp)
+            return jsonify(result)
+        except:
+            print("error")
+            return "error"
+
+@app.route("/postAward",methods=['GET', 'POST'])
+def postAward():
+    if request.method == 'POST':
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        try:
+            user_id = User.query.filter_by(email=email, password=password).first()
+            data = Award.query.filter_by(user_id=user_id.id).all()
+            result = []
+            for d in data:
+                tmp= {
+                'major':d.major,
+                'name':d.name,
+                'user_id':d.user_id
+                }
+            result.append(tmp)
+            return jsonify(result)
+        except:
+            print("error")
+            return "error"
+
+@app.route("/getCertificate",methods=['GET', 'POST'])
+def getCertificate():
+    if request.method == 'POST':
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        try:
+            user_id = User.query.filter_by(email=email, password=password).first()
+            data = Certificate.query.filter_by(user_id=user_id.id).all()
+            result = []
+            for d in data:
+                tmp= {
+                    'name':d.name,
+                    'agency':d.agency,
+                    'user_id':d.user_id
+                }
+            result.append(tmp)
+            return jsonify(result)
+        except:
+            print("error")
+            return "error"
+        
+
+@app.route("/getProject",methods=['GET', 'POST'])
+def getProject():
+    if request.method == 'POST':
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        try:
+            user_id = User.query.filter_by(email=email, password=password).first()
+            data = Project.query.filter_by(user_id=user_id.id).all()
+            result = []
+            for d in data:
+                tmp= {
+                    'startdate':d.startdate,
+                    'enddate':d.enddate,
+                    'url':d.url,
+                    'name':d.name,
+                    'description':d.description,
+                    'user_id':d.user_id
+                }
+            result.append(tmp)
+            return jsonify(result)
+        except:
+            print("error")
+            return "error"
+            
+@app.route("/getEdulevel",methods=['GET', 'POST'])
+def getEdulevel():
+    if request.method == 'POST':
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        try:
+            user_id = User.query.filter_by(email=email, password=password).first()
+            data = Edulevel.query.filter_by(user_id=user_id.id).all()
+            result = []
+            for d in data:
+                tmp= {
+                'type':d.type,
+                'major':d.major,
+                'name':d.name,
+                'user_id':d.user_id
+                }
+            result.append(tmp)
+            return jsonify(result)
+        except:
+            return "error"
+
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
    if request.method == 'GET':
       return render_template('login.html')
    else:
-      data = request.get_json()
-      email = data['email']
-      password = data['password']
-      try:
-         data = User.query.filter_by(email=email, password=password).first()
-         if data is not None:
-            session['logged_in'] = True
-            return "login"
-         else:
-            return password+ 'WhyNotLogin'
-      except:
-         return email + "NotLogin"
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        try:
+            data = User.query.filter_by(email=email, password=password).first()
+            if data is not None:
+                session['logged_in'] = True
+                
+                return jsonify(str(data.id),data.email,data.description,data.name,data.image)
+            else:
+                return password+ 'WhyNotLogin'
+        except:
+            return email + "NotLogin"
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-   print('register')
    if request.method == 'POST':
       data = request.get_json()
-      print('register post')
-      print(data['email'])
       new_user = User(email=data['email'], password=data['password'], name=data['name'], description=data['description'], image=data['image'])
       db.session.add(new_user)
       db.session.commit()

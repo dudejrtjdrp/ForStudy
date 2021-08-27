@@ -1,20 +1,46 @@
 import { db } from "./userData";
 import axios from "axios";
 
-export const loginUser = (formData) => {
-  axios.post("http://localhost:5000/login", 
-  formData
-)
-.then(function (response) {
+
+export const loginUser = async (formData) => {
+  const response =  await axios.post("http://localhost:5000/login", 
+  formData);
+
   console.log(response.data);
-  if (response.data === "login"){
-    console.log ({email: formData['email'], password: formData['password']});
-    return {email: formData['email'], password: formData['password']}
+  if (Number.isInteger(parseInt(response.data[0]))){
+    console.log ({email: response.data[1], description: response.data[2], name: response.data[3]});
+    return {id:response.data[0], email: response.data[1], description: response.data[2], name: response.data[3], image: response.data[4]};
   }
-})
-.catch(function (error) {
-  console.log(error);
-});
+};
+
+export const getAward = async (formData) => {
+  const response =  await axios.post("http://localhost:5000/getAward", 
+  formData);
+  
+  return {name: response.data[0].name, description: response.data[0].description};
+  
+};
+
+export const getEdulevel = async (formData) => {
+  const response =  await axios.post("http://localhost:5000/getEdulevel", 
+  formData);
+  console.log(response.data)
+  return {name: response.data[0].name, major: response.data[0].major, type: response.data[0].type};
+  
+};
+export const getCertificate = async (formData) => {
+  const response =  await axios.post("http://localhost:5000/getCertificate", 
+  formData);
+  
+  return {name: response.data[0].name, agency: response.data[0].agency};
+  
+};
+export const getProject = async (formData) => {
+  const response =  await axios.post("http://localhost:5000/getProject", 
+  formData);
+  
+  return {name: response.data[0].name, description: response.data[0].description, startdate: response.data[0].startdate, enddate: response.data[0].enddate, url: response.data[0].url};
+  
 };
 
 export const registerUser = (formData) => {

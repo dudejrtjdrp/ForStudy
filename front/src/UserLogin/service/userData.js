@@ -25,4 +25,3 @@ const users = printAddress();
 export const db = {
   users,
 };
-

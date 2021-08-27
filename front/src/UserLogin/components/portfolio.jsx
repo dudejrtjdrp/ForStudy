@@ -2,8 +2,6 @@ import React, { useRef, useState } from "react";
 import '../../App.css';
 
 export default function RegisterForm({ onSubmit }) {
-  
-
   const emailRef = useRef();
   const passwordRef = useRef();
   const nameRef = useRef();
@@ -31,7 +29,7 @@ export default function RegisterForm({ onSubmit }) {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <form>
       <fieldset>
           <label htmlFor="name">Name</label>

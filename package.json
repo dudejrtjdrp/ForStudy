@@ -2,6 +2,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "flask-cors": "^0.0.1",
-    "http-proxy-middleware": "^2.0.1"
+    "http-proxy-middleware": "^2.0.1",
+    "react-datepicker": "^4.2.1",
+    "styled-components": "^5.3.1"
   }
 }

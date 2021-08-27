@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import {
   Redirect,
   BrowserRouter as Router,
@@ -11,8 +11,14 @@ import {
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import PrivateRoute from "./components/PrivateRoute";
+import Detail from "./components/Detail";
+import Test from "./components/Test";
+import styled from 'styled-components';
+import './Detail.css';
+import { registerUser, loginUser, getAward,getEdulevel,getCertificate,getProject } from "./service/auth";
+import '../App.css';
 
-import { registerUser, loginUser } from "./service/auth";
+
 
 // location.state.user 정보에 따라 페이지를 이동하는 코드를 작성하세요.
 export default function UserLogin() {
@@ -30,6 +36,10 @@ export default function UserLogin() {
           <Route path="/register">
             <RegisterPage />
           </Route>
+          
+          <Route path="/network">
+            <RegisterPage />
+          </Route>
 
           <PrivateRoute path="/detail">
             <UserDetailPage />
@@ -39,28 +49,35 @@ export default function UserLogin() {
   );
 }
 
-function LoginPage() {
+ function LoginPage() {
   const history = useHistory();
   // 로그인 기능을 구현하세요.
 
-  const handleSubmit = (formData) => {
+   const handleSubmit = async (formData) => {
     // loginUser를 활용해 유저 정보를 검색하세요.
     // 유저 정보가 없다면, 로그인이 되지 않습니다.
     // 유저 정보를 찾으면, location.state.user에 유저 정보를 저장하고 detail page로 이동하세요.
-    const user = loginUser(formData)
-    console.log(user)
+    const user =  await loginUser(formData)
+    const award =  await getAward(formData)
+    const edulevel =  await getEdulevel(formData)
+    const certificate =  await getCertificate(formData)
+    const project =  await getProject(formData)
     if (!user) return
     
     history.push({
         pathname:'/detail',
         state:{
-            user
+            user,
+            award,
+            certificate,
+            edulevel,
+            project
         }
     })
   };
 
   return (
-    <div>
+    <div className="app-container2">
       <LoginForm onSubmit={handleSubmit} />
       <div>
         <Link to="/register">Register</Link>
@@ -81,7 +98,7 @@ function RegisterPage() {
   };
 
   return (
-    <div>
+    <div className="app-container2">
       <h2>Register Page</h2>
       <RegisterForm onSubmit={handleSubmit} />
       <div>
@@ -98,22 +115,19 @@ function UserDetailPage() {
 
   const location = useLocation()
   const user = location.state.user
-
+  const award = location.state.award
+  const certificate = location.state.certificate
+  const project = location.state.project
+  const edulevel = location.state.edulevel
   useEmptyLocationState();
 
 
   return (
-    <div>
-      <h2>Welcome!</h2>
-
+    <Fragment>
       <div>
-        <em>email : {user.email}</em>
+        <Detail user={user} award={award} certificate={certificate} project={project} edulevel={edulevel}/>
       </div>
-
-      <div>
-        <Link to="/login">Logout</Link>
-      </div>
-    </div>
+    </Fragment>
   );
 }
 

@@ -27,9 +27,10 @@ class Award(db.Model):
     #user = db.relationship("User", backref=db.backref("userinfo"))  이것을 굳이 추가해야하는가? 편의성을 위해 넣는 것인가?
 
 
-    def __init__(self, name, description):
+    def __init__(self, name, description, user_id):
         self.name = name
         self.description = description
+        self.user_id = user_id
 
 class Certificate(db.Model):
     __tablename__ = 'CERTIFICATE'
@@ -41,9 +42,11 @@ class Certificate(db.Model):
     #user = relationship("User", backref=backref("userinfo"))  이것을 굳이 추가해야하는가? 편의성을 위해 넣는 것인가?
 
 
-    def __init__(self, name, agency):
+    def __init__(self, name, agency, user_id):
         self.name = name
         self.agency = agency
+        self.user_id = user_id
+
 
 class Project(db.Model):
     __tablename__ = 'PROJECT'
@@ -58,12 +61,14 @@ class Project(db.Model):
     #user = relationship("User", backref=backref("userinfo"))  이것을 굳이 추가해야하는가? 편의성을 위해 넣는 것인가?
 
 
-    def __init__(self, name, description, startdate, enddate, url):
+    def __init__(self, name, description, startdate, enddate, url, user_id):
         self.name = name
         self.description = description
         self.startdate = startdate
         self.enddate = enddate
         self.url = url
+        self.user_id = user_id
+
 
 class Edulevel(db.Model):
     __tablename__ = 'EDULEVEL'
@@ -76,7 +81,8 @@ class Edulevel(db.Model):
     #user = relationship("User", backref=backref("userinfo"))  이것을 굳이 추가해야하는가? 편의성을 위해 넣는 것인가?
 
 
-    def __init__(self, name, major, type):
+    def __init__(self, name, major, type, user_id):
         self.name = name
         self.major = major
         self.type = type
+        self.user_id = user_id
