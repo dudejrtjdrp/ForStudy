@@ -14,23 +14,21 @@
   gap: 10px; /* 자식요소간의 간격 */
 }
 
-.temp-box-profile {
-  max-width: 100%;
-  width: 100%;
+.control-network{
+  display: grid;
+  grid-template-columns: auto 80vw auto; /* 각 행(세로줄)의 길이 */
+  grid-template-rows: 2vh 20vh auto; /* 각 열(가로줄)의 길이 */
+  gap: 10px; /* 자식요소간의 간격 */
+}
 
-  max-height: 200%;
-  height: 200%;
-
-  border: 2px solid #ced4da;
-  border-radius: 10px;
-
-  padding: 12px;
-  margin : 0;
-  display: flex;
+.flexible{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  
+  align-content: center;
 }
 
 .temp-box-profile {
@@ -50,6 +48,44 @@
   justify-content: center;
   flex-direction: column;
   
+}
+
+.temp-box-network {
+  max-width: 250px;
+  width: 250px;
+
+  max-height: 350px;
+  height: 350px;
+
+  border: 2px solid #ced4da;
+  border-radius: 10px;
+
+  padding: 12px;
+  margin : 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.temp-box-profile {
+  max-width: 100%;
+  width: 100%;
+
+  max-height: 200%;
+  height: 200%;
+
+  border: 2px solid #ced4da;
+  border-radius: 10px;
+
+  padding: 12px;
+  margin : 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .temp-box-profile h2{
@@ -69,7 +105,7 @@
   object-fit: cover;
 }
 .text{
-  margin: 0 auto 25% 10%;
+  width : 170px;
 }
 
 .temp-box-pf {
@@ -237,24 +273,25 @@
 .item { 
   color: black; 
   text-decoration: none;  
-  width : 120px;
-  height: 40px;
-  margin: auto 0;
-  text-align: center;
-  border: 2px solid #ced4da;
-  border-radius: 10px;
 } 
 .item a{
   color: black; 
+  
+  width : 80px;
+  height: 30px;
+  margin: 10px;
+  text-align: center;
+  border: 2px solid #ced4da;
+  border-radius: 10px;
   text-decoration: none;  
-  display: block;
+  display: inline-block;
   padding-top: 9px;
 }
 
-.item:hover { 
+.item a:hover { 
   background: #748ffc; 
 } 
-.item:active, .item.active { 
+.item a:active, .item a.active { 
   background: #748ffc; 
   color: #5c7cfa; 
 }

@@ -48,6 +48,29 @@ def check():
             result.append(tmp)
         return jsonify(result)
 
+@app.route("/getUser",methods=['GET', 'POST'])
+def getUser():
+    if request.method == 'POST':
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        print(email,password)
+        try:
+            data = User.query.filter_by(email=email).all()
+            print(data)
+            result = []
+            for d in data:
+                tmp= {
+                'id':d.id,
+                'name':d.name,
+                'description':d.description,
+                'image':d.image,
+                }
+            result.append(tmp)
+            return jsonify(result)
+        except:
+            print("error")
+            return "error"
 
 @app.route("/getAward",methods=['GET', 'POST'])
 def getAward():
@@ -180,8 +203,7 @@ def login():
             data = User.query.filter_by(email=email, password=password).first()
             if data is not None:
                 session['logged_in'] = True
-                
-                return jsonify(str(data.id),data.email,data.description,data.name,data.image)
+                return jsonify(str(data.id))
             else:
                 return password+ 'WhyNotLogin'
         except:

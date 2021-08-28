@@ -48,7 +48,22 @@ export const registerUser = (formData) => {
   console.log(formData);
 };
 
-export const getUser = (userId) => {
-  return db.users.find((user) => user.id === userId);
-};
 
+export const getUser = async (formData) => {
+  const response =  await axios.post("http://localhost:5000/getUser", 
+  formData);
+  console.log({id:response.data[0].id, name: response.data[0].name, description: response.data[0].description, image: response.data[0].image});
+  return {id:response.data[0].id, name: response.data[0].name, description: response.data[0].description, image: response.data[0].image};
+  
+};
+export const getUserInfo = async () => {
+  const response =  await axios.get("http://localhost:5000/check");
+  console.log(response.data)
+  const data = response.data
+  const arr = []
+  for(var i=0; i<data.length; i++) {
+    arr.push(data[i]);
+  }
+  console.log(arr)
+  return arr;
+};

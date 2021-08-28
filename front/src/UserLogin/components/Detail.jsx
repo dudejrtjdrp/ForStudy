@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import {
     BrowserRouter as Router,
     Link,
+    useHistory,
   } from "react-router-dom";
 import styled from 'styled-components'
 import '../../App.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { registerUser, loginUser, getAward,getEdulevel,getCertificate,getProject, getUser, getUserInfo } from "../service/auth";
 
 
 export default class Detail  extends React.Component {
     
     render() {
-      const {user,award, certificate,edulevel,project} = this.props;
+      const {user,award, certificate,edulevel,project,users} = this.props;
+      console.log(users)
       return (
         <div className="control">
           <div></div>
@@ -26,12 +29,13 @@ export default class Detail  extends React.Component {
               <img src={user.image}></img>
           </div>
           <div className="text">
-            <p>이름 : {user.email}</p>
-            <p>한 줄 소개 : {user.name}</p>
+            <p>이름 : {user.name}</p>
+            <p>한 줄 소개 : {user.description}</p>
           </div>
     
           <div className="item">
             <Link to="/login" >Logout</Link>
+            <Link to="/network" >Network</Link>
           </div>
           </div>
           <div></div>
