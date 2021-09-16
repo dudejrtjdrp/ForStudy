@@ -57,13 +57,7 @@ export const getUser = async (formData) => {
   
 };
 export const getUserInfo = async () => {
-  const response =  await axios.get("http://localhost:5000/check");
-  console.log(response.data)
-  const data = response.data
-  const arr = []
-  for(var i=0; i<data.length; i++) {
-    arr.push(data[i]);
-  }
-  console.log(arr)
-  return arr;
+  const {data} =  await axios.get("http://localhost:5000/check");
+
+  return data;
 };

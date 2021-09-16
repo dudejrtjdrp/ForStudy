@@ -13,8 +13,8 @@ import NetUsers from "./NetUsers";
 export default class Network  extends React.Component {
     
     render() {
-      const {users} = this.props;
-      console.log(users)
+      // const {users} = this.props;
+      // console.log(users)
       return (
         <div className="control-network">
           <div></div>
@@ -22,19 +22,18 @@ export default class Network  extends React.Component {
           <div></div>
           <div></div>
           <div className="flexible">
-            <NetUsers />
-            <NetUsers />
-            <NetUsers />
-            <NetUsers />
-            <NetUsers />
-            <NetUsers />
-            <NetUsers />
-            <NetUsers />
-            
+          <div className="temp-box-network">
+          <NetUsers/>
+          <NetUsers/>
+          <NetUsers/>
+          <NetUsers/>
+          <NetUsers/>
+          <NetUsers/>
+          <NetUsers/>
           </div>
           <div></div>
         </div>
-        
+        </div>
       );
     }
   }

@@ -126,14 +126,16 @@ function UserDetailPage() {
   );
 }
 
-
  function  NetworkPage() {
-  const users =  getUserInfo()
-  console.log(users.id)
+   let users
+   useEffect(async () => {
+     users = await getUserInfo()
+   }, [])
+  
   return (
     <Fragment>
       <div>
-        <Network />
+        <Network users={users}/>
       </div>
     </Fragment>
   );
